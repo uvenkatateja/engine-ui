@@ -14,4 +14,17 @@ export const examples: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "trace-breadcrumb-demo",
+    type: "registry:example",
+    description:
+      "Demo showcasing TraceBreadcrumb with multiple trace scenarios",
+    registryDependencies: ["trace-breadcrumb"],
+    files: [
+      {
+        path: "registry/default/example/trace-breadcrumb-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
 ]

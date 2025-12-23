@@ -13,6 +13,18 @@
         }
       ],
       "description": "Dense microservice health visualization with 100+ cells showing instance/pod status in a compact honeycomb grid"
+    },
+    {
+      "name": "trace-breadcrumb",
+      "type": "registry:ui",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/default/ui/trace-breadcrumb.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "description": "Horizontal trace timeline showing request flow through microservices with time spent in each service"
     }
   ]
 }

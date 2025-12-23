@@ -16,4 +16,19 @@ export const ui: Registry["items"] = [
     category: "Status & Health Visualization",
     subcategory: "Monitoring",
   },
+  {
+    name: "trace-breadcrumb",
+    type: "registry:ui",
+    description:
+      "Horizontal trace timeline showing request flow through microservices with time spent in each service",
+    dependencies: [],
+    files: [
+      {
+        path: "registry/default/ui/trace-breadcrumb.tsx",
+        type: "registry:ui",
+      },
+    ],
+    category: "Tracing & Observability",
+    subcategory: "Distributed Tracing",
+  },
 ]

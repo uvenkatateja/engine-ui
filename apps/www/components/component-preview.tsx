@@ -96,6 +96,10 @@ export function ComponentPreview({
       const StatusHoneycombDemo =
         require("@/registry/default/example/status-honeycomb-demo").default
       Component = StatusHoneycombDemo
+    } else if (name === "trace-breadcrumb-demo") {
+      const TraceBreadcrumbDemo =
+        require("@/registry/default/example/trace-breadcrumb-demo").default
+      Component = TraceBreadcrumbDemo
     }
   } catch (error) {
     console.error(`Failed to load component: ${name}`, error)
@@ -313,6 +317,119 @@ export function StatusHoneycomb({ nodes, columns = 8 }: StatusHoneycombProps) {
 }
 
 export type { HoneycombNode, StatusHoneycombProps }`,
+  "trace-breadcrumb-demo": `"use client"
+
+import { cn } from "@/lib/utils"
+
+interface TraceSpan {
+  id: string
+  service: string
+  duration: number // in milliseconds
+  status?: "success" | "warning" | "error"
+}
+
+interface TraceBreadcrumbProps {
+  requestId: string
+  spans: TraceSpan[]
+  className?: string
+}
+
+const statusColors: Record<string, { bg: string; text: string }> = {
+  success: { bg: "bg-emerald-500", text: "text-emerald-400" },
+  warning: { bg: "bg-amber-500", text: "text-amber-400" },
+  error: { bg: "bg-red-500", text: "text-red-400" },
+}
+
+// Color palette for services (cycles through)
+const serviceColors = [
+  "bg-cyan-500",
+  "bg-amber-500", 
+  "bg-emerald-500",
+  "bg-violet-500",
+  "bg-rose-500",
+  "bg-blue-500",
+  "bg-orange-500",
+  "bg-teal-500",
+]
+
+export function TraceBreadcrumb({ requestId, spans, className }: TraceBreadcrumbProps) {
+  const totalDuration = spans.reduce((sum, span) => sum + span.duration, 0)
+
+  return (
+    <div className={cn("w-full font-mono text-sm", className)}>
+      {/* Header */}
+      <div className="flex items-center justify-between mb-4 text-zinc-300">
+        <span>
+          Request ID: <span className="text-cyan-400">{requestId}</span>
+        </span>
+        <span>
+          Total: <span className="text-white font-semibold">{totalDuration}ms</span>
+        </span>
+      </div>
+
+      {/* Timeline Container */}
+      <div className="relative border border-cyan-500/50 rounded-lg p-4 bg-zinc-950/50">
+        {/* Total label */}
+        <div className="absolute top-2 right-3 text-xs text-zinc-400">
+          Total: {totalDuration}ms
+        </div>
+
+        {/* Spans Timeline */}
+        <div className="flex items-center gap-0 mt-4 overflow-x-auto pb-2">
+          {/* Entry arrow */}
+          <div className="flex items-center text-cyan-400 shrink-0">
+            <span className="text-lg">→</span>
+          </div>
+
+          {spans.map((span, index) => {
+            // Calculate width based on duration (min 60px, max based on proportion)
+            const proportion = span.duration / totalDuration
+            const minWidth = 60
+            const maxWidth = 200
+            const width = Math.max(minWidth, Math.min(maxWidth, proportion * 400))
+            
+            const colorIndex = index % serviceColors.length
+            const bgColor = span.status 
+              ? statusColors[span.status].bg 
+              : serviceColors[colorIndex]
+
+            return (
+              <div key={span.id} className="flex items-center shrink-0">
+                {/* Span Block */}
+                <div
+                  className={cn(
+                    "relative flex items-center justify-center px-3 py-2 rounded text-xs font-medium text-zinc-900 transition-all hover:scale-105 hover:z-10",
+                    bgColor
+                  )}
+                  style={{ minWidth: \`\${width}px\` }}
+                >
+                  <span className="truncate">
+                    {span.service} ({span.duration}ms)
+                  </span>
+                </div>
+
+                {/* Arrow between spans */}
+                {index < spans.length - 1 && (
+                  <div className="flex items-center text-cyan-400 mx-0.5 shrink-0">
+                    <span className="text-lg">→</span>
+                  </div>
+                )}
+              </div>
+            )
+          })}
+
+          {/* Exit arrow */}
+          <div className="flex items-center text-cyan-400 shrink-0 ml-0.5">
+            <span className="text-lg">→</span>
+            <span className="text-xl ml-1">»</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export type { TraceSpan, TraceBreadcrumbProps }`,
 }
 
 export function ComponentSource({ name }: { name: string }) {

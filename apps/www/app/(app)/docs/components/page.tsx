@@ -2,7 +2,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, ArrowRight, Activity } from "lucide-react"
+import { ArrowLeft, ArrowRight, Activity, GitBranch } from "lucide-react"
 
 export default function ComponentsPage() {
   const components = [
@@ -13,6 +13,14 @@ export default function ComponentsPage() {
       href: "/docs/components/status-honeycomb",
       icon: Activity,
       features: ["High Density", "Real-time", "Interactive", "Performant"],
+    },
+    {
+      name: "TraceBreadcrumb",
+      description: "Horizontal trace timeline showing request flow through microservices with time spent in each service",
+      category: "Tracing",
+      href: "/docs/components/trace-breadcrumb",
+      icon: GitBranch,
+      features: ["Request Flow", "Time Visualization", "Service Mapping", "Status Colors"],
     },
   ]
 

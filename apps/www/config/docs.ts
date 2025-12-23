@@ -53,6 +53,17 @@ export const docsConfig: DocsConfig = {
             },
           ],
         },
+        {
+          title: "Tracing",
+          href: "/docs/components/trace-breadcrumb",
+          items: [
+            {
+              title: "TraceBreadcrumb",
+              href: "/docs/components/trace-breadcrumb",
+              items: [],
+            },
+          ],
+        },
       ],
     },
   ],
