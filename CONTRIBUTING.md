@@ -1,6 +1,6 @@
-# Contributing to Engine UI
+# Contributing to Ungine UI
 
-Thank you for your interest in contributing to Engine UI!
+Thank you for your interest in contributing to Ungine UI!
 
 ## Development Setup
 

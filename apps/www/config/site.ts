@@ -1,7 +1,7 @@
 export const siteConfig = {
-  name: 'Engine UI',
-  url: 'https://engine-ui.vercel.app',
-  ogImage: 'https://engine-ui.vercel.app/og.jpg',
+  name: 'Ungine UI',
+  url: 'https://ungine.vercel.app',
+  ogImage: 'https://ungine.vercel.app/og.jpg',
   description: 'Information-First components for operational interfaces. Dense, precise, and functional.',
   links: {
     twitter: 'https://twitter.com/engineui',

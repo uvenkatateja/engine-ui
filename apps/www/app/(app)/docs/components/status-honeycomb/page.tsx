@@ -33,7 +33,7 @@ Dense microservice health visualization. Monitor 100+ pods/instances in a compac
 ## Installation
 
 \`\`\`bash
-npx shadcn@latest add https://engine-ui.vercel.app/r/status-honeycomb.json
+npx shadcn@latest add https://ungine.vercel.app/r/status-honeycomb.json
 \`\`\`
 
 ## Usage
@@ -71,7 +71,7 @@ export function Monitor() {
                 <div className="docs-nav bg-background/80 border-border/50 fixed inset-x-0 bottom-0 isolate z-50 flex items-center gap-2 border-t px-6 py-4 backdrop-blur-sm sm:static sm:z-0 sm:border-t-0 sm:bg-transparent sm:px-0 sm:pt-1.5 sm:backdrop-blur-none">
                   <DocsCopyPage 
                     page={pageContent}
-                    url="https://engine-ui.vercel.app/docs/components/status-honeycomb"
+                    url="https://ungine.vercel.app/docs/components/status-honeycomb"
                   />
                   <Button
                     variant="secondary"

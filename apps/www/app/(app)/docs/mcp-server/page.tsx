@@ -67,7 +67,7 @@ export default function MCPServerPage() {
                 </div>
               </div>
               <p className="text-muted-foreground text-[1.05rem] text-balance sm:text-base">
-                Use Engine UI components with AI assistants via Model Context Protocol.
+                Use Ungine UI components with AI assistants via Model Context Protocol.
               </p>
             </div>
           </div>
@@ -76,19 +76,19 @@ export default function MCPServerPage() {
               <h2 id="what-is-mcp">What is MCP?</h2>
               <p>
                 The Model Context Protocol (MCP) is an open protocol that enables AI assistants to 
-                interact with external tools and data sources. Engine UI provides an MCP server that 
+                interact with external tools and data sources. Ungine UI provides an MCP server that 
                 allows AI assistants to browse, search, and add components to your project.
               </p>
 
               <h2 id="installation">Installation</h2>
-              <p>Install the Engine UI MCP server globally:</p>
+              <p>Install the Ungine UI MCP server globally:</p>
               <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
-                <code>npm install -g @engine-ui/mcp-server</code>
+                <code>npm install -g @ungine-ui/mcp-server</code>
               </pre>
 
               <p>Or use it with npx:</p>
               <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
-                <code>npx @engine-ui/mcp-server</code>
+                <code>npx @ungine-ui/mcp-server</code>
               </pre>
 
               <h2 id="configuration">Configuration</h2>
@@ -96,9 +96,9 @@ export default function MCPServerPage() {
               <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
                 <code>{`{
   "mcpServers": {
-    "engine-ui": {
+    "ungine-ui": {
       "command": "npx",
-      "args": ["-y", "@engine-ui/mcp-server"]
+      "args": ["-y", "@ungine-ui/mcp-server"]
     }
   }
 }`}</code>
@@ -109,9 +109,9 @@ export default function MCPServerPage() {
               <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
                 <code>{`{
   "mcpServers": {
-    "engine-ui": {
+    "ungine-ui": {
       "command": "npx",
-      "args": ["-y", "@engine-ui/mcp-server"],
+      "args": ["-y", "@ungine-ui/mcp-server"],
       "disabled": false
     }
   }
@@ -121,7 +121,7 @@ export default function MCPServerPage() {
               <h2 id="usage">Usage</h2>
               <p>Once configured, you can ask your AI assistant to:</p>
               <ul>
-                <li>Browse available Engine UI components</li>
+                <li>Browse available Ungine UI components</li>
                 <li>Search for specific components</li>
                 <li>Add components to your project</li>
                 <li>Get component documentation</li>
@@ -130,9 +130,9 @@ export default function MCPServerPage() {
 
               <h3>Example Prompts</h3>
               <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
-                <code>{`"Show me all available Engine UI components"
+                <code>{`"Show me all available Ungine UI components"
 "Add the Button component to my project"
-"Search for card components in Engine UI"
+"Search for card components in Ungine UI"
 "How do I use the Dialog component?"`}</code>
               </pre>
 
@@ -140,7 +140,7 @@ export default function MCPServerPage() {
               <p>The MCP server provides the following tools:</p>
               
               <h3>list_components</h3>
-              <p>Lists all available components in the Engine UI library.</p>
+              <p>Lists all available components in the Ungine UI library.</p>
 
               <h3>search_components</h3>
               <p>Searches for components by name or description.</p>

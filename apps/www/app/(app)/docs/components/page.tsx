@@ -67,7 +67,7 @@ export default function ComponentsPage() {
             <div className="prose prose-neutral dark:prose-invert max-w-none">
               <h2 className="text-2xl font-semibold tracking-tight">Component Library</h2>
               <p className="text-base leading-7">
-                Engine UI components are designed for <strong>operational interfaces</strong> - dashboards, 
+                Ungine UI components are designed for <strong>operational interfaces</strong> - dashboards, 
                 admin panels, monitoring tools, and data-heavy applications. Each component prioritizes 
                 information density, scanning speed, and functional aesthetics.
               </p>

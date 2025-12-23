@@ -67,7 +67,7 @@ export default function InstallationPage() {
                 </div>
               </div>
               <p className="text-muted-foreground text-[1.05rem] text-balance sm:text-base">
-                How to install and configure Engine UI in your project.
+                How to install and configure Ungine UI in your project.
               </p>
             </div>
           </div>
@@ -88,7 +88,7 @@ export default function InstallationPage() {
               </pre>
 
               <h2 id="install-dependencies">Install Dependencies</h2>
-              <p>Install the required dependencies for Engine UI components:</p>
+              <p>Install the required dependencies for Ungine UI components:</p>
               <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
                 <code>{`npm install @radix-ui/react-slot class-variance-authority clsx tailwind-merge lucide-react`}</code>
               </pre>
@@ -172,7 +172,7 @@ export function cn(...inputs: ClassValue[]) {
               <p>Now you're ready to add components! Copy the component code from the documentation and paste it into your <code>components/ui</code> directory.</p>
 
               <h3>That's it!</h3>
-              <p>You can now start using Engine UI components in your project. Check out the components section to see what's available.</p>
+              <p>You can now start using Ungine UI components in your project. Check out the components section to see what's available.</p>
             </div>
           </div>
         </div>

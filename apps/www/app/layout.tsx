@@ -5,8 +5,8 @@ import { cn } from '@/lib/utils'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Engine UI',
-    template: '%s | Engine UI',
+    default: 'Ungine UI',
+    template: '%s | Ungine UI',
   },
   description: 'Beautifully designed components built with Radix UI and Tailwind CSS.',
   keywords: [

@@ -260,10 +260,10 @@ export function InstallationTabs() {
 
       {installationType === "cli" ? (
         <CodeBlockCommand
-          __pnpm__="pnpm dlx shadcn@latest add https://engine-ui.vercel.app/r/status-honeycomb.json"
-          __npm__="npx shadcn@latest add https://engine-ui.vercel.app/r/status-honeycomb.json"
-          __yarn__="npx shadcn@latest add https://engine-ui.vercel.app/r/status-honeycomb.json"
-          __bun__="bunx --bun shadcn@latest add https://engine-ui.vercel.app/r/status-honeycomb.json"
+          __pnpm__="pnpm dlx shadcn@latest add https://ungine.vercel.app/r/status-honeycomb.json"
+          __npm__="npx shadcn@latest add https://ungine.vercel.app/r/status-honeycomb.json"
+          __yarn__="npx shadcn@latest add https://ungine.vercel.app/r/status-honeycomb.json"
+          __bun__="bunx --bun shadcn@latest add https://ungine.vercel.app/r/status-honeycomb.json"
         />
       ) : (
         <ManualInstallation />

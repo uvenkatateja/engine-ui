@@ -69,8 +69,8 @@ export default function DocsPage() {
             <div className="prose prose-neutral dark:prose-invert max-w-none">
               <h2 id="overview">Overview</h2>
               <p>
-                Engine UI is a specialized shadcn/ui registry built for <strong>Information-First</strong> development. 
-                While traditional libraries focus on Marketing UI (spacious, soft, and aesthetic), Engine UI is 
+                Ungine UI is a specialized shadcn/ui registry built for <strong>Information-First</strong> development. 
+                While traditional libraries focus on Marketing UI (spacious, soft, and aesthetic), Ungine UI is 
                 built for <strong>Operational UI</strong> (dense, precise, and functional).
               </p>
               <p>
@@ -94,7 +94,7 @@ export default function DocsPage() {
               <h2 id="philosophy">Philosophy</h2>
               <p>
                 <strong>Information-First, Not Marketing-First.</strong> Most component libraries are designed for 
-                landing pages and marketing sites. Engine UI is designed for the interfaces you use every day: 
+                landing pages and marketing sites. Ungine UI is designed for the interfaces you use every day: 
                 monitoring dashboards, admin panels, data tables, and operational tools.
               </p>
               <p>
@@ -110,7 +110,7 @@ export default function DocsPage() {
               <h2 id="faq">FAQ</h2>
               <h3>How is this different from shadcn/ui?</h3>
               <p>
-                shadcn/ui is perfect for marketing sites and consumer apps. Engine UI is optimized for 
+                shadcn/ui is perfect for marketing sites and consumer apps. Ungine UI is optimized for 
                 operational interfaces: dashboards, admin panels, monitoring tools, and data-heavy applications. 
                 We use the same workflow (copy & paste) but with components designed for information density 
                 and functional aesthetics.
@@ -125,12 +125,12 @@ export default function DocsPage() {
 
               <h3>Can I use this with shadcn/ui?</h3>
               <p>
-                Absolutely! Engine UI components are compatible with shadcn/ui. Use shadcn for your marketing 
-                pages and Engine UI for your dashboard. They share the same foundation (Radix UI + Tailwind CSS) 
+                Absolutely! Ungine UI components are compatible with shadcn/ui. Use shadcn for your marketing 
+                pages and Ungine UI for your dashboard. They share the same foundation (Radix UI + Tailwind CSS) 
                 and can coexist in the same project.
               </p>
 
-              <h3>Do I need to credit Engine UI?</h3>
+              <h3>Do I need to credit Ungine UI?</h3>
               <p>
                 No attribution required. The code is yours. However, we'd appreciate a star on GitHub if you 
                 find it useful!

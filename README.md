@@ -1,14 +1,14 @@
-# Engine UI
+# Ungine UI
 
 **Information-First components for operational interfaces.**
 
-Engine UI is a specialized shadcn/ui registry built for dashboards, admin panels, and monitoring tools. While traditional libraries focus on Marketing UI (spacious, soft, and aesthetic), Engine UI is built for Operational UI (dense, precise, and functional).
+Ungine UI is a specialized shadcn/ui registry built for dashboards, admin panels, and monitoring tools. While traditional libraries focus on Marketing UI (spacious, soft, and aesthetic), Ungine UI is built for Operational UI (dense, precise, and functional).
 
 > "The Grafana philosophy brought into the shadcn workflow."
 
 ## Philosophy
 
-Most component libraries are designed for landing pages and marketing sites. Engine UI is designed for the interfaces you use every day: monitoring dashboards, admin panels, data tables, and operational tools.
+Most component libraries are designed for landing pages and marketing sites. Ungine UI is designed for the interfaces you use every day: monitoring dashboards, admin panels, data tables, and operational tools.
 
 We believe operational interfaces should be:
 - **Dense but not cluttered** - Maximum information without overwhelming
@@ -27,7 +27,7 @@ We believe operational interfaces should be:
 
 ## Quick Start
 
-Visit [engine-ui.vercel.app](https://engine-ui.vercel.app) for full documentation.
+Visit [ungine.vercel.app](https://ungine.vercel.app) for full documentation.
 
 ### Installation
 
@@ -39,7 +39,7 @@ npx create-next-app@latest my-app --typescript --tailwind --app
 npm install @radix-ui/react-slot class-variance-authority clsx tailwind-merge lucide-react
 
 # Copy components from the documentation
-# Visit https://engine-ui.vercel.app/docs/components
+# Visit https://ungine.vercel.app/docs/components
 ```
 
 ## Project Structure

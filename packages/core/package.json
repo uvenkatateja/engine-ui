@@ -1,7 +1,7 @@
 {
   "name": "@engine-ui/core",
   "version": "0.0.1",
-  "description": "Core utilities and types for Engine UI",
+  "description": "Core utilities and types for Ungine UI",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
