@@ -31,4 +31,19 @@ export const ui: Registry["items"] = [
     category: "Tracing & Observability",
     subcategory: "Distributed Tracing",
   },
+  {
+    name: "latency-flame-compact",
+    type: "registry:ui",
+    description:
+      "Horizontal flame graph strip for trace spans with stacked bars by duration and depth coloring",
+    dependencies: [],
+    files: [
+      {
+        path: "registry/default/ui/latency-flame-compact.tsx",
+        type: "registry:ui",
+      },
+    ],
+    category: "Tracing & Observability",
+    subcategory: "Flame Graphs",
+  },
 ]

@@ -62,6 +62,11 @@ export const docsConfig: DocsConfig = {
               href: "/docs/components/trace-breadcrumb",
               items: [],
             },
+            {
+              title: "LatencyFlameCompact",
+              href: "/docs/components/latency-flame-compact",
+              items: [],
+            },
           ],
         },
       ],

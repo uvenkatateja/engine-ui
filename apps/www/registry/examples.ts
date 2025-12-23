@@ -27,4 +27,17 @@ export const examples: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "latency-flame-compact-demo",
+    type: "registry:example",
+    description:
+      "Demo showcasing LatencyFlameCompact with nested trace spans",
+    registryDependencies: ["latency-flame-compact"],
+    files: [
+      {
+        path: "registry/default/example/latency-flame-compact-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
 ]

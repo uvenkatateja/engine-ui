@@ -90,10 +90,12 @@ export function RequestTrace() {
                     variant="secondary"
                     size="icon"
                     className="size-8 shadow-none md:size-7"
-                    disabled
+                    asChild
                   >
-                    <ArrowRight className="size-4" />
-                    <span className="sr-only">Next</span>
+                    <Link href="/docs/components/latency-flame-compact">
+                      <ArrowRight className="size-4" />
+                      <span className="sr-only">Next</span>
+                    </Link>
                   </Button>
                 </div>
               </div>
@@ -254,10 +256,12 @@ export function RequestTrace() {
           <Button
             variant="secondary"
             size="sm"
-            disabled
+            asChild
             className="ml-auto shadow-none"
           >
-            <span className="hidden sm:inline">Next</span> <ArrowRight className="size-4" />
+            <Link href="/docs/components/latency-flame-compact">
+              <span className="hidden sm:inline">LatencyFlameCompact</span> <ArrowRight className="size-4" />
+            </Link>
           </Button>
         </div>
       </div>

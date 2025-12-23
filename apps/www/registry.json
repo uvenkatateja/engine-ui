@@ -25,6 +25,18 @@
         }
       ],
       "description": "Horizontal trace timeline showing request flow through microservices with time spent in each service"
+    },
+    {
+      "name": "latency-flame-compact",
+      "type": "registry:ui",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/default/ui/latency-flame-compact.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "description": "Horizontal flame graph strip for trace spans with stacked bars by duration and depth coloring"
     }
   ]
 }
