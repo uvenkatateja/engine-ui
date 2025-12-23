@@ -7,9 +7,15 @@ export const generateStaticParams = async () => {
   const registryData = await import("@/registry.json")
   const registry = registryData.default
 
-  return registry.items.map((item: { name: string }) => ({
-    name: item.name,
-  }))
+  const params: { name: string }[] = []
+  
+  registry.items.forEach((item: { name: string }) => {
+    // Generate both with and without .json extension
+    params.push({ name: item.name })
+    params.push({ name: `${item.name}.json` })
+  })
+
+  return params
 }
 
 // This route serves component JSON for shadcn CLI
