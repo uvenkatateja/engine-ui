@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { fontSans, fontMono } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
+import { ThemeProvider } from '@/components/providers'
 
 export const metadata: Metadata = {
   title: {
@@ -35,9 +36,11 @@ export default function RootLayout({
           fontMono.variable
         )}
       >
-        <div className="relative flex min-h-screen flex-col">
-          {children}
-        </div>
+        <ThemeProvider>
+          <div className="relative flex min-h-screen flex-col">
+            {children}
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   )

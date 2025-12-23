@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { MainNav } from "@/components/main-nav"
 import { MobileNav } from "@/components/mobile-nav"
+import { ModeToggle } from "@/components/mode-toggle"
 
 export function SiteHeader() {
   const pathname = usePathname()
@@ -18,7 +19,7 @@ export function SiteHeader() {
       className={cn(
         "sticky top-0 z-50 w-full",
         pathname?.includes("/docs")
-          ? "-mb-12 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+          ? "-mb-12 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:bg-background/80"
           : "-mb-14"
       )}
     >
@@ -61,6 +62,7 @@ export function SiteHeader() {
                 <span className="sr-only">Twitter</span>
               </div>
             </Link>
+            {pathname?.includes("/docs") && <ModeToggle />}
           </nav>
         </div>
       </div>
