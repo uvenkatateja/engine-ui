@@ -40,4 +40,17 @@ export const examples: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "health-gauge-demo",
+    type: "registry:example",
+    description:
+      "Demo showcasing HealthGauge with server metrics and table integration",
+    registryDependencies: ["health-gauge"],
+    files: [
+      {
+        path: "registry/default/example/health-gauge-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
 ]

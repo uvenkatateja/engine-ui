@@ -37,6 +37,18 @@
         }
       ],
       "description": "Horizontal flame graph strip for trace spans with stacked bars by duration and depth coloring"
+    },
+    {
+      "name": "health-gauge",
+      "type": "registry:ui",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/default/ui/health-gauge.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "description": "Vertical segmented rack light gauge for CPU/MEM/Disk/Load with signal glow on thresholds"
     }
   ]
 }

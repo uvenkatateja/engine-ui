@@ -46,4 +46,19 @@ export const ui: Registry["items"] = [
     category: "Tracing & Observability",
     subcategory: "Flame Graphs",
   },
+  {
+    name: "health-gauge",
+    type: "registry:ui",
+    description:
+      "Vertical segmented rack light gauge for CPU/MEM/Disk/Load with signal glow on thresholds",
+    dependencies: [],
+    files: [
+      {
+        path: "registry/default/ui/health-gauge.tsx",
+        type: "registry:ui",
+      },
+    ],
+    category: "Status & Health Visualization",
+    subcategory: "Monitoring",
+  },
 ]

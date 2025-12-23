@@ -51,6 +51,11 @@ export const docsConfig: DocsConfig = {
               href: "/docs/components/status-honeycomb",
               items: [],
             },
+            {
+              title: "HealthGauge",
+              href: "/docs/components/health-gauge",
+              items: [],
+            },
           ],
         },
         {
