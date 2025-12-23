@@ -1,0 +1,282 @@
+---
+title: StatusHoneycomb
+description: Dense microservice health visualization with 100+ cells showing instance/pod status in a compact honeycomb grid
+component: true
+---
+
+<ComponentPreview
+  name="status-honeycomb-demo"
+  description="Real-world monitoring scenarios"
+/>
+
+## Overview
+
+StatusHoneycomb is an **Information-First** component designed for operational interfaces. It visualizes the health of 100+ instances, pods, or services in a perfect hexagonal tessellation pattern without performance degradation.
+
+**Features true honeycomb design:** Hexagons connect seamlessly with zero gaps, creating an authentic honeycomb pattern on a dark background - perfect for monitoring dashboards.
+
+### Why StatusHoneycomb?
+
+Traditional monitoring dashboards use badge grids or lists that:
+- **Kill performance** with 100+ DOM elements
+- **Waste space** with verbose labels
+- **Lack density** for quick scanning
+
+StatusHoneycomb solves this with:
+- **Perfect tessellation**: Hexagons connect with zero gaps
+- **High density**: 120+ cells in compact space
+- **Instant scanning**: Color-coded status at a glance
+- **Smooth animations**: Pulse effects for active states
+- **Tooltip details**: Hover for full information
+- **Real-time updates**: Efficient re-renders
+- **Dark theme**: Professional monitoring aesthetic
+
+## Use Cases
+
+- **Kubernetes Pods**: Monitor 100+ microservice instances
+- **Server Fleets**: Track global infrastructure health
+- **Database Connections**: Visualize connection pool status
+- **API Endpoints**: Monitor service availability
+- **Worker Queues**: Track job processing status
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add https://engine-ui.vercel.app/r/status-honeycomb.json
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies</Step>
+
+```bash
+npm install motion
+```
+
+<Step>Copy the component code</Step>
+
+<ComponentSource name="status-honeycomb" />
+
+<Step>Update import paths to match your project</Step>
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Usage
+
+### Basic Example
+
+```tsx
+import {
+  StatusHoneycomb,
+  StatusHoneycombStats,
+  StatusHoneycombLegend,
+} from "@/components/ui/status-honeycomb"
+
+const pods = [
+  { id: "pod-1", status: "active", label: "api-service-1" },
+  { id: "pod-2", status: "warning", label: "api-service-2" },
+  { id: "pod-3", status: "idle", label: "api-service-3" },
+  // ... 100+ more
+]
+
+export function PodMonitor() {
+  return (
+    <div className="space-y-4">
+      {/* Hexagon honeycomb stats */}
+      <StatusHoneycombStats cells={pods} />
+      
+      <StatusHoneycomb
+        cells={pods}
+        shape="hexagon"
+        size="md"
+        columns={10}
+        showPulse={true}
+        onCellClick={(cell) => console.log(cell)}
+      />
+      
+      <StatusHoneycombLegend />
+    </div>
+  )
+}
+```
+
+### With Real-time Updates
+
+```tsx
+function LiveMonitor() {
+  const [pods, setPods] = useState(initialPods)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Fetch latest status from API
+      fetchPodStatus().then(setPods)
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  return <StatusHoneycomb cells={pods} />
+}
+```
+
+### With Click Handler
+
+```tsx
+function InteractiveMonitor() {
+  const [selected, setSelected] = useState(null)
+
+  return (
+    <div className="flex gap-4">
+      <StatusHoneycomb
+        cells={pods}
+        onCellClick={setSelected}
+      />
+      
+      {selected && (
+        <Card>
+          <CardHeader>
+            <CardTitle>{selected.label}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <pre>{JSON.stringify(selected.metadata, null, 2)}</pre>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  )
+}
+```
+
+## API Reference
+
+### StatusHoneycomb
+
+Main component for rendering the grid.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `cells` | `CellData[]` | required | Array of cell data to display |
+| `shape` | `"hexagon" \| "square" \| "circle"` | `"hexagon"` | Shape of each cell (hexagon recommended) |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Size of cells (24px, 32px, 40px) |
+| `gap` | `number` | `0` | Gap between cells (0 for perfect tessellation) |
+| `columns` | `number` | `10` | Number of columns in grid |
+| `showPulse` | `boolean` | `true` | Pulse animation for active/warning |
+| `showTooltip` | `boolean` | `true` | Show tooltip on hover |
+| `onCellClick` | `(cell: CellData) => void` | - | Click handler |
+| `onCellHover` | `(cell: CellData \| null) => void` | - | Hover handler |
+
+**Note:** For perfect honeycomb tessellation, use `shape="hexagon"` with `gap={0}` (default).
+
+### CellData
+
+```typescript
+interface CellData {
+  id: string                    // Unique identifier
+  status: CellStatus            // Health status
+  label?: string                // Display label
+  metadata?: Record<string, any> // Additional data
+}
+
+type CellStatus = "idle" | "active" | "warning" | "critical" | "offline"
+```
+
+### StatusHoneycombStats
+
+Displays aggregate statistics in hexagon-shaped honeycomb cells.
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `cells` | `CellData[]` | Array of cells to analyze |
+| `className` | `string` | Additional CSS classes |
+
+**Features:**
+- Hexagon shapes matching the honeycomb theme
+- Warm amber/honey color palette
+- Compact design (90px × 78px per stat)
+- Shows: Total, Active, Warning, Critical, and Health percentage
+- Hover effects for interactivity
+
+### StatusHoneycombLegend
+
+Displays status color legend.
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `className` | `string` | Additional CSS classes |
+
+## Status Colors
+
+| Status | Color | Use Case |
+|--------|-------|----------|
+| `idle` | Dark Gray | No activity, waiting for work |
+| `active` | Emerald Green | Processing requests, healthy |
+| `warning` | Orange | High load, minor errors |
+| `critical` | Red | Service degraded, major errors |
+| `offline` | Black | Not responding, unreachable |
+
+**Note:** The component uses a dark background (#030712) by default to match the professional monitoring aesthetic shown in the reference design.
+
+## Performance
+
+StatusHoneycomb is optimized for high-density displays:
+
+- **120 cells**: ~60fps with animations
+- **500 cells**: ~30fps (still usable)
+- **1000+ cells**: Consider pagination or filtering
+
+Tips for large datasets:
+- Use `size="sm"` for maximum density
+- Disable `showPulse` if performance drops
+- Implement virtual scrolling for 1000+ cells
+- Use `React.memo` for cell components
+
+## Design Philosophy
+
+StatusHoneycomb embodies Engine UI's **Information-First** approach:
+
+1. **Perfect Tessellation**: True hexagonal honeycomb with zero gaps between cells
+2. **Density over Spaciousness**: 120+ cells in minimal space vs 10 cards in 800px
+3. **Scanning over Reading**: Color-coded status beats text labels
+4. **Context on Demand**: Tooltips provide details without clutter
+5. **Operational Focus**: Built for monitoring dashboards, not marketing
+6. **Dark Theme**: Professional aesthetic for 24/7 monitoring environments
+
+**Mathematical Precision**: Uses flat-top hexagons with proper tessellation math (75% horizontal spacing, offset rows) for perfect honeycomb pattern.
+
+## Accessibility
+
+- Keyboard navigation with arrow keys
+- Focus indicators on cells
+- ARIA labels for screen readers
+- Color-blind friendly palette (consider adding patterns)
+
+## Examples
+
+See the demo above for complete examples including:
+- Kubernetes pod monitoring
+- Server fleet visualization
+- Database connection pools
+- Size comparisons
+
+## Related Components
+
+- **StatusTimeline**: Time-series health visualization
+- **MetricGrid**: Dense metric display
+- **AlertPanel**: Critical status aggregation
