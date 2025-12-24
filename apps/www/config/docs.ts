@@ -56,6 +56,11 @@ export const docsConfig: DocsConfig = {
               href: "/docs/components/health-gauge",
               items: [],
             },
+            {
+              title: "MetricGrid",
+              href: "/docs/components/metric-grid",
+              items: [],
+            },
           ],
         },
         {

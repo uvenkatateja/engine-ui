@@ -49,6 +49,18 @@
         }
       ],
       "description": "Vertical segmented rack light gauge for CPU/MEM/Disk/Load with signal glow on thresholds"
+    },
+    {
+      "name": "metric-grid",
+      "type": "registry:ui",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/default/ui/metric-grid.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "description": "Tight grid of 50+ mini metrics with values and micro-sparklines for numerical trends in minimal space"
     }
   ]
 }

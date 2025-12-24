@@ -54,11 +54,9 @@ export async function ComponentSource({
       <div className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
         <CopyButton value={code} />
       </div>
-      <div className="w-full rounded-md [&_pre]:my-0 [&_pre]:max-h-[450px] [&_pre]:overflow-auto">
-        <pre className="bg-muted p-3 sm:p-4 rounded-md overflow-auto">
-          <code className="text-xs sm:text-sm whitespace-pre font-mono">{code}</code>
-        </pre>
-      </div>
+      <pre className="bg-muted p-3 sm:p-4 overflow-auto max-h-[500px] no-scrollbar">
+        <code className="text-xs sm:text-sm whitespace-pre font-mono">{code}</code>
+      </pre>
     </div>
   )
 }

@@ -142,4 +142,38 @@ export const Index: Record<string, any> = {
       return { default: mod.default }
     }),
   },
+  "metric-grid": {
+    name: "metric-grid",
+    description: "Tight grid of 50+ mini metrics with values and micro-sparklines",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [
+      {
+        path: "registry/default/ui/metric-grid.tsx",
+        type: "registry:ui",
+        target: "",
+      },
+    ],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/ui/metric-grid.tsx")
+      return { default: mod.MetricGrid || mod.default }
+    }),
+  },
+  "metric-grid-demo": {
+    name: "metric-grid-demo",
+    description: "Demo for MetricGrid component",
+    type: "registry:example",
+    registryDependencies: ["metric-grid"],
+    files: [
+      {
+        path: "registry/default/ui/metric-grid.tsx",
+        type: "registry:ui",
+        target: "",
+      },
+    ],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/example/metric-grid-demo.tsx")
+      return { default: mod.default }
+    }),
+  },
 }

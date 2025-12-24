@@ -53,4 +53,17 @@ export const examples: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "metric-grid-demo",
+    type: "registry:example",
+    description:
+      "Demo showcasing MetricGrid with CPU, memory, and disk metrics",
+    registryDependencies: ["metric-grid"],
+    files: [
+      {
+        path: "registry/default/example/metric-grid-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
 ]

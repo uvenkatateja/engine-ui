@@ -61,4 +61,19 @@ export const ui: Registry["items"] = [
     category: "Status & Health Visualization",
     subcategory: "Monitoring",
   },
+  {
+    name: "metric-grid",
+    type: "registry:ui",
+    description:
+      "Tight grid of 50+ mini metrics with values and micro-sparklines for numerical trends in minimal space",
+    dependencies: [],
+    files: [
+      {
+        path: "registry/default/ui/metric-grid.tsx",
+        type: "registry:ui",
+      },
+    ],
+    category: "Status & Health Visualization",
+    subcategory: "Metrics",
+  },
 ]
