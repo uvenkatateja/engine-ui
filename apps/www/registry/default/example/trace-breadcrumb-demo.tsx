@@ -32,7 +32,7 @@ export default function TraceBreadcrumbDemo() {
     <div className="flex flex-col gap-10 w-full max-w-5xl mx-auto py-6">
       {/* Checkout Flow */}
       <div>
-        <div className="text-xs text-zinc-400 mb-2 font-medium uppercase tracking-wide">
+        <div className="text-xs text-muted-foreground mb-2 font-medium uppercase tracking-wide">
           E-Commerce Checkout Flow
         </div>
         <TraceBreadcrumb
@@ -43,7 +43,7 @@ export default function TraceBreadcrumbDemo() {
 
       {/* Slow Query */}
       <div>
-        <div className="text-xs text-zinc-400 mb-2 font-medium uppercase tracking-wide">
+        <div className="text-xs text-muted-foreground mb-2 font-medium uppercase tracking-wide">
           Slow Database Query
         </div>
         <TraceBreadcrumb
@@ -54,7 +54,7 @@ export default function TraceBreadcrumbDemo() {
 
       {/* Error Trace */}
       <div>
-        <div className="text-xs text-zinc-400 mb-2 font-medium uppercase tracking-wide">
+        <div className="text-xs text-muted-foreground mb-2 font-medium uppercase tracking-wide">
           Failed External API Call
         </div>
         <TraceBreadcrumb
