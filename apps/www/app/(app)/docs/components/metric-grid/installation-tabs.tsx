@@ -1,16 +1,12 @@
 "use client"
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import * as React from "react"
+import { cn } from "@/lib/utils"
+import { useConfig } from "@/hooks/use-config"
+import { CodeBlockCommand } from "@/components/code-block-command"
 import { CopyButton } from "@/components/copy-button"
 
-const cliCommands = {
-  pnpm: "pnpm dlx shadcn@latest add https://ungine.vercel.app/r/metric-grid.json",
-  npm: "npx shadcn@latest add https://ungine.vercel.app/r/metric-grid.json",
-  yarn: "npx shadcn@latest add https://ungine.vercel.app/r/metric-grid.json",
-  bun: "bunx shadcn@latest add https://ungine.vercel.app/r/metric-grid.json",
-}
-
-const manualCode = `"use client"
+const componentCode = `"use client"
 
 import { useMemo, useState } from "react"
 import { cn } from "@/lib/utils"
@@ -87,53 +83,303 @@ export interface Metric {
   category: "cpu" | "mem" | "disk"
 }
 
+function MetricCell({ metric }: { metric: Metric }) {
+  const [isHovered, setIsHovered] = useState(false)
+
+  const isHighLoad = metric.alertType === "high-load"
+  const isLatencySpike = metric.alertType === "latency-spike"
+  const hasAlert = isHighLoad || isLatencySpike
+
+  return (
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={cn(
+        "relative flex flex-col justify-between",
+        "border-r border-b border-border",
+        "p-2 min-h-[72px]",
+        "transition-all duration-200 ease-out cursor-pointer",
+        isHovered && !hasAlert && "bg-muted/60 scale-[1.02] z-10 shadow-lg shadow-black/40 dark:shadow-black/60",
+        isHovered && hasAlert && "scale-[1.02] z-10 shadow-lg shadow-black/40 dark:shadow-black/60",
+        isHighLoad && "bg-red-500/10 dark:bg-red-950/60",
+        isLatencySpike && "bg-amber-500/10 dark:bg-amber-950/50",
+        isHighLoad && isHovered && "bg-red-500/20 dark:bg-red-900/70",
+        isLatencySpike && isHovered && "bg-amber-500/20 dark:bg-amber-900/60"
+      )}
+    >
+      <div className="flex items-start justify-between gap-1">
+        <span
+          className={cn(
+            "font-mono text-[10px] font-medium tracking-tight transition-colors duration-200",
+            isHighLoad ? "text-red-600 dark:text-red-400" : isLatencySpike ? "text-amber-600 dark:text-amber-400" : "text-muted-foreground",
+            isHovered && !hasAlert && "text-foreground"
+          )}
+        >
+          {metric.label}
+        </span>
+        <span
+          className={cn(
+            "font-mono text-xs font-semibold tabular-nums transition-colors duration-200",
+            isHighLoad ? "text-red-700 dark:text-red-300" : isLatencySpike ? "text-amber-700 dark:text-amber-300" : "text-foreground",
+            isHovered && !hasAlert && "text-foreground"
+          )}
+        >
+          {metric.value}
+        </span>
+      </div>
+
+      <div className="flex items-center justify-between mt-0.5">
+        <span
+          className={cn(
+            "font-mono text-[10px] tabular-nums text-muted-foreground transition-colors duration-200",
+            isHovered && "text-muted-foreground/80"
+          )}
+        >
+          {metric.secondary}
+        </span>
+        {hasAlert && (
+          <div className="flex items-center gap-1">
+            <svg
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className={cn(
+                "w-3 h-3 transition-transform duration-200",
+                isHighLoad ? "text-red-500" : "text-amber-500",
+                isHovered && "scale-125"
+              )}
+            >
+              <path
+                fillRule="evenodd"
+                d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+        )}
+      </div>
+
+      {hasAlert && (
+        <div
+          className={cn(
+            "font-mono text-[8px] font-bold tracking-wide mt-0.5 transition-all duration-200",
+            isHighLoad ? "text-red-600 dark:text-red-400" : "text-amber-600 dark:text-amber-400",
+            isHovered && isHighLoad && "text-red-500 dark:text-red-300",
+            isHovered && isLatencySpike && "text-amber-500 dark:text-amber-300"
+          )}
+        >
+          {isHighLoad ? "HIGH LOAD" : "LATENCY SPIKE"}
+        </div>
+      )}
+
+      {!hasAlert && (
+        <div className="mt-auto pt-1">
+          <MicroSparkline data={metric.sparkline} color={metric.sparkColor} animated={isHovered} />
+        </div>
+      )}
+
+      <div
+        className={cn(
+          "absolute bottom-0 left-0 right-0 h-0.5 transition-all duration-200",
+          isHovered && !hasAlert && metric.sparkColor === "cyan" && "bg-cyan-500/60",
+          isHovered && !hasAlert && metric.sparkColor === "amber" && "bg-amber-500/60",
+          isHovered && !hasAlert && metric.sparkColor === "white" && "bg-zinc-400/60",
+          isHovered && isHighLoad && "bg-red-500/80",
+          isHovered && isLatencySpike && "bg-amber-500/80",
+          !isHovered && "bg-transparent"
+        )}
+      />
+    </div>
+  )
+}
+
 export interface MetricGridProps {
   metrics?: Metric[]
   columns?: number
   className?: string
 }
 
-export function MetricGrid({ metrics, columns = 10, className }: MetricGridProps) {
-  // Component implementation...
-}`
+function generateDefaultMetrics(): Metric[] {
+  const metrics: Metric[] = []
+  let id = 0
 
-export function InstallationTabs() {
+  // CPU metrics
+  for (let i = 1; i <= 20; i++) {
+    const cpuNum = String(i).padStart(2, "0")
+    const usage = Math.floor(Math.random() * 30 + 70)
+    const secondary = \`\${Math.floor(Math.random() * 400 + 100)}K\`
+
+    metrics.push({
+      id: \`cpu-\${id++}\`,
+      label: \`CPU-\${cpuNum}\`,
+      value: \`\${usage}%\`,
+      secondary,
+      sparkline: Array.from({ length: 12 }, () => Math.random() * 40 + 30),
+      sparkColor: "cyan",
+      category: "cpu",
+    })
+  }
+
+  // Memory metrics
+  for (let i = 0; i < 20; i++) {
+    const memLabel = i < 10 ? \`MEM-\${String(i).padStart(2, "0")}\` : \`MEM-\${String.fromCharCode(65 + (i - 10))}\`
+    const usage = i % 5 === 0 ? "14.2G" : \`\${(Math.random() * 10 + 5).toFixed(1)}G\`
+    const secondary = \`\${Math.floor(Math.random() * 400 + 100)}K\`
+    const isAlert = Math.random() > 0.88
+
+    metrics.push({
+      id: \`mem-\${id++}\`,
+      label: memLabel,
+      value: usage,
+      secondary,
+      sparkline: Array.from({ length: 12 }, () => Math.random() * 50 + 25),
+      sparkColor: "amber",
+      category: "mem",
+      alertType: isAlert ? "high-load" : undefined,
+    })
+  }
+
+  // Disk metrics
+  for (let i = 0; i < 20; i++) {
+    const diskLabel = \`DISK-\${String.fromCharCode(65 + (i % 8))}\`
+    const usage = \`\${Math.floor(Math.random() * 400 + 100)}K\`
+    const percent = \`\${Math.floor(Math.random() * 60 + 10)}%\`
+    const isHighLoad = Math.random() > 0.9
+    const isLatencySpike = !isHighLoad && Math.random() > 0.88
+
+    metrics.push({
+      id: \`disk-\${id++}\`,
+      label: diskLabel,
+      value: percent,
+      secondary: usage,
+      sparkline: Array.from({ length: 12 }, () => Math.random() * 60 + 20),
+      sparkColor: "white",
+      category: "disk",
+      alertType: isHighLoad ? "high-load" : isLatencySpike ? "latency-spike" : undefined,
+    })
+  }
+
+  return metrics
+}
+
+export function MetricGrid({ metrics: propMetrics, columns = 10, className }: MetricGridProps) {
+  const metrics = useMemo(() => propMetrics || generateDefaultMetrics(), [propMetrics])
+  const alertCount = metrics.filter((m) => m.alertType).length
+
   return (
-    <Tabs defaultValue="pnpm" className="w-full not-prose">
-      <TabsList className="grid w-full grid-cols-5 mb-4">
-        <TabsTrigger value="pnpm">pnpm</TabsTrigger>
-        <TabsTrigger value="npm">npm</TabsTrigger>
-        <TabsTrigger value="yarn">yarn</TabsTrigger>
-        <TabsTrigger value="bun">bun</TabsTrigger>
-        <TabsTrigger value="manual">Manual</TabsTrigger>
-      </TabsList>
+    <div className={cn("w-full bg-background font-mono", className)}>
+      <div
+        className="grid border-l border-t border-border"
+        style={{
+          gridTemplateColumns: \`repeat(\${columns}, minmax(0, 1fr))\`,
+        }}
+      >
+        {metrics.map((metric) => (
+          <MetricCell key={metric.id} metric={metric} />
+        ))}
+      </div>
 
-      {(Object.keys(cliCommands) as Array<keyof typeof cliCommands>).map((pm) => (
-        <TabsContent key={pm} value={pm}>
-          <div className="relative">
-            <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
-              <code>{cliCommands[pm]}</code>
-            </pre>
-            <div className="absolute top-2 right-2">
-              <CopyButton value={cliCommands[pm]} />
-            </div>
+      <div className="flex items-center justify-between px-3 py-2 border-t border-border bg-muted/30">
+        <div className="flex items-center gap-4 text-[10px] font-mono text-muted-foreground">
+          <span className="flex items-center gap-1.5">
+            <span className="w-2 h-0.5 bg-cyan-500 rounded-full" />
+            CPU
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-2 h-0.5 bg-amber-500 rounded-full" />
+            MEM
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-2 h-0.5 bg-zinc-500 rounded-full" />
+            DISK
+          </span>
+        </div>
+        {alertCount > 0 && (
+          <div className="flex items-center gap-1.5 text-[10px] font-mono text-red-500">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+            {alertCount} ALERTS
           </div>
-        </TabsContent>
-      ))}
+        )}
+      </div>
+    </div>
+  )
+}
 
-      <TabsContent value="manual">
-        <div className="relative">
-          <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-xs max-h-[400px] no-scrollbar">
-            <code>{manualCode}</code>
+export type { Metric as MetricGridMetric }
+`
+
+function ManualInstallation() {
+  return (
+    <div className="space-y-4">
+      <div>
+        <p className="text-sm text-muted-foreground mb-2">
+          Copy and paste the following code into your project.
+        </p>
+        <div className="relative group">
+          <pre className="bg-muted p-3 sm:p-4 rounded-lg overflow-x-auto text-xs sm:text-sm pr-12 max-h-96">
+            <code>{componentCode}</code>
           </pre>
-          <div className="absolute top-2 right-2">
-            <CopyButton value={manualCode} />
+          <div className="absolute right-3 top-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <CopyButton value={componentCode} />
           </div>
         </div>
-        <p className="text-sm text-muted-foreground mt-2">
-          Copy the full component code from the Code tab above.
+      </div>
+      <div>
+        <p className="text-sm text-muted-foreground mb-2">
+          Update the import paths to match your project setup.
         </p>
-      </TabsContent>
-    </Tabs>
+      </div>
+    </div>
+  )
+}
+
+export function InstallationTabs() {
+  const [config, setConfig] = useConfig()
+  const installationType = config.installationType || "cli"
+
+  return (
+    <div className="space-y-4">
+      {/* CLI / Manual Tabs */}
+      <div className="flex gap-2 border-b">
+        <button
+          onClick={() => setConfig({ ...config, installationType: "cli" })}
+          className={cn(
+            "px-4 py-2 text-sm font-medium transition-colors relative",
+            installationType === "cli"
+              ? "text-foreground"
+              : "text-muted-foreground hover:text-foreground"
+          )}
+        >
+          CLI
+          {installationType === "cli" && (
+            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-foreground" />
+          )}
+        </button>
+        <button
+          onClick={() => setConfig({ ...config, installationType: "manual" })}
+          className={cn(
+            "px-4 py-2 text-sm font-medium transition-colors relative",
+            installationType === "manual"
+              ? "text-foreground"
+              : "text-muted-foreground hover:text-foreground"
+          )}
+        >
+          Manual
+          {installationType === "manual" && (
+            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-foreground" />
+          )}
+        </button>
+      </div>
+
+      {installationType === "cli" ? (
+        <CodeBlockCommand
+          __pnpm__="pnpm dlx shadcn@latest add https://ungine.vercel.app/r/metric-grid.json"
+          __npm__="npx shadcn@latest add https://ungine.vercel.app/r/metric-grid.json"
+          __yarn__="npx shadcn@latest add https://ungine.vercel.app/r/metric-grid.json"
+          __bun__="bunx --bun shadcn@latest add https://ungine.vercel.app/r/metric-grid.json"
+        />
+      ) : (
+        <ManualInstallation />
+      )}
+    </div>
   )
 }
